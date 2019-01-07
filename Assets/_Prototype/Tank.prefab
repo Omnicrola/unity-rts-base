@@ -340,6 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4398d2e03b85406993f58fdf0f820b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UnitName: Tank
   Hitpoints: 1
   TeamNumber: 0
 --- !u!135 &2499563458015841726
@@ -402,6 +403,7 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 8618890472983295814, guid: 29a49595d93c7b441bcaadbe5e8c6438,
     type: 3}
   MuzzlePosition: {fileID: 3777544921510074286}
+  EnemyScanInterval: 1
   Range: 5
   Damage: 1
   Speed: 5

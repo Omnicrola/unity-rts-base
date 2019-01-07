@@ -10,14 +10,15 @@ namespace DefaultNamespace
         private readonly LayerMask _unitMask;
         private readonly LayerMask _terrainMask;
         private readonly PlayerController _localPlayer;
-        private UnitSelectionGroup _currentSelection;
- 
+        public UnitSelectionGroup CurrentSelection { get; private set; }
+        public event EventHandler<UnitSelectionChangedEvent> SelectionChanged;
+
         public CursorAdapter(PlayerController localPlayer, LayerMask terrainMask, LayerMask unitMask)
         {
             _localPlayer = localPlayer;
             _terrainMask = terrainMask;
             _unitMask = unitMask;
-            _currentSelection = new UnitSelectionGroup(localPlayer, new List<SelectableUnit>());
+            CurrentSelection = new UnitSelectionGroup(localPlayer, new List<SelectableUnit>());
         }
 
 
@@ -29,7 +30,7 @@ namespace DefaultNamespace
 
             if (selectedEnemy != null)
             {
-                _currentSelection.AttackTarget(selectedEnemy);
+                CurrentSelection.AttackTarget(selectedEnemy);
             }
             else
             {
@@ -39,7 +40,7 @@ namespace DefaultNamespace
 
         public void Halt()
         {
-            _currentSelection.Halt();
+            CurrentSelection.Halt();
         }
 
         public bool MoveToTerrainPosition()
@@ -48,7 +49,7 @@ namespace DefaultNamespace
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo, _terrainMask))
             {
-                _currentSelection.AttackLocation(hitInfo.point);
+                CurrentSelection.AttackLocation(hitInfo.point);
                 return true;
             }
             else
@@ -56,12 +57,6 @@ namespace DefaultNamespace
                 return false;
             }
         }
-
-        public void SetSelectedUnits(List<SelectableUnit> selected)
-        {
-            _currentSelection = new UnitSelectionGroup(_localPlayer, selected);
-        }
-
         public void SpawnPlayerAt(Vector3 location)
         {
             _localPlayer.CmdSpawnStartingUnit(location);
@@ -82,7 +77,8 @@ namespace DefaultNamespace
             var units = GetUnitsUnderCursor()
                 .Where(u => u.TeamNumber == playerTeam)
                 .ToList();
-            _currentSelection = new UnitSelectionGroup(_localPlayer, units);
+            CurrentSelection = new UnitSelectionGroup(_localPlayer, units);
+            NotifySelectionChanged();
         }
 
         public void BoxSelect(Rect selectionBox)
@@ -91,7 +87,16 @@ namespace DefaultNamespace
             var selectedUnits = TeamManager.Instance.AllUnitsForPlayer(playerTeam)
                 .Where(IsInBounds(selectionBox))
                 .ToList();
-            _currentSelection = new UnitSelectionGroup(_localPlayer, selectedUnits);
+            CurrentSelection = new UnitSelectionGroup(_localPlayer, selectedUnits);
+            NotifySelectionChanged();
+        }
+
+        private void NotifySelectionChanged()
+        {
+            if (SelectionChanged != null)
+            {
+                SelectionChanged.Invoke(this, new UnitSelectionChangedEvent(CurrentSelection));
+            }
         }
 
         private Func<SelectableUnit, bool> IsInBounds(Rect selectionBox)
@@ -102,6 +107,16 @@ namespace DefaultNamespace
                 var screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
                 return selectionBox.Contains(screenPosition);
             };
+        }
+    }
+
+    public class UnitSelectionChangedEvent
+    {
+        public UnitSelectionGroup CurrentSelection { get; private set; }
+
+        public UnitSelectionChangedEvent(UnitSelectionGroup currentSelection)
+        {
+            CurrentSelection = currentSelection;
         }
     }
 }

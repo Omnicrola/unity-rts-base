@@ -14,6 +14,8 @@ namespace DefaultNamespace
         private Dictionary<Type, ICursorState> _states;
         private ICursorState _currentState;
         public CursorAdapter CursorAdapter { get; private set; }
+        public event EventHandler<UnitSelectionChangedEvent> SelectionChanged;
+
         private PlayerController _localPlayer;
 
         private void Start()
@@ -25,7 +27,13 @@ namespace DefaultNamespace
         public void RegisterLocalPlayer(PlayerController playerController)
         {
             CursorAdapter = new CursorAdapter(playerController, TerrainMask, UnitMask);
+            CursorAdapter.SelectionChanged += SelectionChanged;
             _localPlayer = playerController;
+        }
+
+        private void OnDestroy()
+        {
+            CursorAdapter.SelectionChanged -= SelectionChanged;
         }
 
         private void InitStateMachine(ICursorState[] cursorStates)
@@ -41,7 +49,7 @@ namespace DefaultNamespace
             {
                 return;
             }
-            
+
             var transitionState = _currentState.Evaluate(CursorAdapter);
             if (transitionState != null && transitionState != _currentState.GetType())
             {

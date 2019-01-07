@@ -10,6 +10,7 @@ namespace DefaultNamespace
     [RequireComponent(typeof(UnitMovement), typeof(UnitAttack))]
     public class SelectableUnit : NetworkBehaviour
     {
+        public string UnitName = "Generic Unit";
         public float Hitpoints = 1;
         public short TeamNumber;
 

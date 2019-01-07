@@ -57,16 +57,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\_Prototype\CursorFsm\AttackCursorState.cs" />
-    <Compile Include="Assets\_Prototype\CursorFsm\CursorAdapter.cs" />
-    <Compile Include="Assets\_Prototype\CursorFsm\CursorManager.cs" />
-    <Compile Include="Assets\_Prototype\CursorFsm\ICursorState.cs" />
-    <Compile Include="Assets\_Prototype\CursorFsm\MoveCursorState.cs" />
-    <Compile Include="Assets\_Prototype\CursorFsm\PickSpawnCursorState.cs" />
-    <Compile Include="Assets\_Prototype\CursorFsm\SelectionBoxOverlay.cs" />
-    <Compile Include="Assets\_Prototype\CursorFsm\SelectionCursorState.cs" />
-    <Compile Include="Assets\_Prototype\CursorFsm\StartingCursorState.cs" />
-    <Compile Include="Assets\_Prototype\CursorFsm\UnitSelectionGroup.cs" />
     <Compile Include="Assets\_Prototype\DebugReadout.cs" />
     <Compile Include="Assets\_Prototype\GuiManager.cs" />
     <Compile Include="Assets\_Prototype\IPoolableObject.cs" />
@@ -82,7 +72,18 @@
     <Compile Include="Assets\_Prototype\SpawnPools\SpawnManager.cs" />
     <Compile Include="Assets\_Prototype\Team.cs" />
     <Compile Include="Assets\_Prototype\TeamManager.cs" />
-    <Compile Include="Assets\_Prototype\UnitActionViewController.cs" />
+    <Compile Include="Assets\_Prototype\Ui\CursorFsm\AttackCursorState.cs" />
+    <Compile Include="Assets\_Prototype\Ui\CursorFsm\CursorAdapter.cs" />
+    <Compile Include="Assets\_Prototype\Ui\CursorFsm\CursorManager.cs" />
+    <Compile Include="Assets\_Prototype\Ui\CursorFsm\ICursorState.cs" />
+    <Compile Include="Assets\_Prototype\Ui\CursorFsm\MoveCursorState.cs" />
+    <Compile Include="Assets\_Prototype\Ui\CursorFsm\PickSpawnCursorState.cs" />
+    <Compile Include="Assets\_Prototype\Ui\CursorFsm\SelectionBoxOverlay.cs" />
+    <Compile Include="Assets\_Prototype\Ui\CursorFsm\SelectionCursorState.cs" />
+    <Compile Include="Assets\_Prototype\Ui\CursorFsm\StartingCursorState.cs" />
+    <Compile Include="Assets\_Prototype\Ui\CursorFsm\UnitSelectionGroup.cs" />
+    <Compile Include="Assets\_Prototype\Ui\SelectedUnitsViewController.cs" />
+    <Compile Include="Assets\_Prototype\Ui\UnitActionViewController.cs" />
     <Compile Include="Assets\_Prototype\UnitAttack.cs" />
     <Compile Include="Assets\_Prototype\UnitMovement.cs" />
     <Compile Include="Assets\_Prototype\UnityExtensions.cs" />
