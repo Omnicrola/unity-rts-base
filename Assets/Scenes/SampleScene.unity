@@ -558,6 +558,7 @@ GameObject:
   - component: {fileID: 534669904}
   - component: {fileID: 534669903}
   - component: {fileID: 534669906}
+  - component: {fileID: 534669907}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -642,6 +643,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 20
+--- !u!114 &534669907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534669902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23dcc455aa0848cf9eaf791cacd8c1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BorderMaterial: {fileID: 2100000, guid: f878142eba489f1468d52b3d61737e97, type: 2}
+  SelectionState: {fileID: 1375943313}
 --- !u!1 &692632306
 GameObject:
   m_ObjectHideFlags: 0
@@ -2226,7 +2241,6 @@ GameObject:
   - component: {fileID: 1375943312}
   - component: {fileID: 1375943311}
   - component: {fileID: 1375943310}
-  - component: {fileID: 1375943316}
   m_Layer: 5
   m_Name: CursorManager
   m_TagString: Untagged
@@ -2354,19 +2368,6 @@ MonoBehaviour:
   UnitMask:
     serializedVersion: 2
     m_Bits: 1024
---- !u!114 &1375943316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1375943308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23dcc455aa0848cf9eaf791cacd8c1b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BorderMaterial: {fileID: 2100000, guid: f878142eba489f1468d52b3d61737e97, type: 2}
 --- !u!1 &1673166602
 GameObject:
   m_ObjectHideFlags: 0

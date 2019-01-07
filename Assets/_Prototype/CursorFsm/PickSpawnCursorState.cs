@@ -37,6 +37,7 @@ namespace DefaultNamespace
                 {
                     
                     cursorAdapter.SpawnPlayerAt(hitInfo.point);
+                    return typeof(StartingCursorState);
                 }
             }
             else

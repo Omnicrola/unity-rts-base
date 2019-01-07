@@ -22,6 +22,7 @@ namespace DefaultNamespace
         public void EnterState()
         {
             _selectionStart = Input.mousePosition;
+            UpdateSelectionBox();
             IsSelecting = true;
         }
 

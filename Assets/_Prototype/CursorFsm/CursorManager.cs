@@ -60,6 +60,7 @@ namespace DefaultNamespace
 
         public void PickSpawnPosition()
         {
+            _currentState = _states[typeof(PickSpawnCursorState)];
         }
     }
 }

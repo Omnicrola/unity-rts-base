@@ -2,22 +2,16 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    [RequireComponent(typeof(SelectionCursorState))]
+    [RequireComponent(typeof(Camera))]
     public class SelectionBoxOverlay : MonoBehaviour
     {
         public Material BorderMaterial;
-        private SelectionCursorState _selectionState;
-
-        private void Start()
-        {
-            _selectionState = GetComponent<SelectionCursorState>();
-        }
-
+        public SelectionCursorState SelectionState;
         private void OnPostRender()
         {
-            if (_selectionState.IsSelecting)
+            if (SelectionState.IsSelecting)
             {
-                var box = _selectionState.SelectionBox;
+                var box = SelectionState.SelectionBox;
                 var width = Screen.width;
                 var height = Screen.height;
                 var v1 = new Vector3(box.xMin / width, (height - box.yMin) / height, 0);
