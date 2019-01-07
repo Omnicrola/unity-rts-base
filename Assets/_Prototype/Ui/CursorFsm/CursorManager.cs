@@ -8,6 +8,7 @@ namespace DefaultNamespace
 {
     public class CursorManager : MonoBehaviour
     {
+        public Camera MainCamera;
         public LayerMask TerrainMask;
         public LayerMask UnitMask;
 
@@ -26,7 +27,7 @@ namespace DefaultNamespace
 
         public void RegisterLocalPlayer(PlayerController playerController)
         {
-            CursorAdapter = new CursorAdapter(playerController, TerrainMask, UnitMask);
+            CursorAdapter = new CursorAdapter(MainCamera, playerController, TerrainMask, UnitMask);
             CursorAdapter.SelectionChanged += SelectionChanged;
             _localPlayer = playerController;
         }

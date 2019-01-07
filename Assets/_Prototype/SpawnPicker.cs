@@ -4,6 +4,7 @@ namespace DefaultNamespace
 {
     public class SpawnPicker : MonoBehaviour
     {
+        public Camera MainCamera;
         public LayerMask TerrainMask;
         public float VerticalOffset;
         public GameObject SelectionMarker;
@@ -29,7 +30,7 @@ namespace DefaultNamespace
 
         private void Update()
         {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var ray = MainCamera.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo, TerrainMask))

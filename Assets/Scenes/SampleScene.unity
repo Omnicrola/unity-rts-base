@@ -3325,6 +3325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c1bf1c664c496d8f66c38089124ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MainCamera: {fileID: 534669904}
   Text: {fileID: 1752383074}
 --- !u!1 &1197036393
 GameObject:
@@ -4499,6 +4500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2134dabd0a0d4f4c974458d67cfaa06d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MainCamera: {fileID: 534669904}
   TerrainMask:
     serializedVersion: 2
     m_Bits: 512
@@ -4582,6 +4584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad5c9672f80644dd81024158d0626252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MainCamera: {fileID: 534669904}
   TerrainMask:
     serializedVersion: 2
     m_Bits: 512
@@ -4726,6 +4729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b90ef9338e1449b59b57edc8a0308d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MainCamera: {fileID: 534669904}
   TerrainMask:
     serializedVersion: 2
     m_Bits: 512

@@ -10,11 +10,13 @@ namespace DefaultNamespace
         private readonly LayerMask _unitMask;
         private readonly LayerMask _terrainMask;
         private readonly PlayerController _localPlayer;
+        private Camera _mainCamera;
         public UnitSelectionGroup CurrentSelection { get; private set; }
         public event EventHandler<UnitSelectionChangedEvent> SelectionChanged;
 
-        public CursorAdapter(PlayerController localPlayer, LayerMask terrainMask, LayerMask unitMask)
+        public CursorAdapter(Camera mainCamera, PlayerController localPlayer, LayerMask terrainMask, LayerMask unitMask)
         {
+            _mainCamera = mainCamera;
             _localPlayer = localPlayer;
             _terrainMask = terrainMask;
             _unitMask = unitMask;
@@ -45,7 +47,7 @@ namespace DefaultNamespace
 
         public bool MoveToTerrainPosition()
         {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo, _terrainMask))
             {
@@ -64,7 +66,7 @@ namespace DefaultNamespace
 
         private IEnumerable<SelectableUnit> GetUnitsUnderCursor()
         {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
             return Physics.RaycastAll(ray, 1000, _unitMask, QueryTriggerInteraction.Ignore)
                 .OrderBy(c => c.distance)
                 .Select(c => c.collider.GetComponent<SelectableUnit>())
@@ -104,7 +106,7 @@ namespace DefaultNamespace
             return (unit) =>
             {
                 var worldPosition = unit.transform.position;
-                var screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
+                var screenPosition = _mainCamera.WorldToScreenPoint(worldPosition);
                 return selectionBox.Contains(screenPosition);
             };
         }

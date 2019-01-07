@@ -6,11 +6,12 @@ namespace DefaultNamespace
 {
     public class DebugReadout : MonoBehaviour
     {
+        public Camera MainCamera;
         public TextMeshProUGUI Text;
 
         private void Update()
         {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var ray = MainCamera.ScreenPointToRay(Input.mousePosition);
 
             var hits = Physics.RaycastAll(ray);
 

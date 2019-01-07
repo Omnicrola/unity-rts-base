@@ -5,6 +5,7 @@ namespace DefaultNamespace
 {
     public class PickSpawnCursorState : MonoBehaviour, ICursorState
     {
+        public Camera MainCamera;
         public LayerMask TerrainMask;
         public float VerticalOffset;
         public GameObject SelectionMarker;
@@ -21,7 +22,7 @@ namespace DefaultNamespace
 
         public Type Evaluate(CursorAdapter cursorAdapter)
         {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var ray = MainCamera.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo, TerrainMask))
