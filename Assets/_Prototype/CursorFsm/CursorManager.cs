@@ -13,7 +13,7 @@ namespace DefaultNamespace
 
         private Dictionary<Type, ICursorState> _states;
         private ICursorState _currentState;
-        private CursorAdapter _cursorAdapter;
+        public CursorAdapter CursorAdapter { get; private set; }
         private PlayerController _localPlayer;
 
         private void Start()
@@ -24,7 +24,7 @@ namespace DefaultNamespace
 
         public void RegisterLocalPlayer(PlayerController playerController)
         {
-            _cursorAdapter = new CursorAdapter(playerController, TerrainMask, UnitMask);
+            CursorAdapter = new CursorAdapter(playerController, TerrainMask, UnitMask);
             _localPlayer = playerController;
         }
 
@@ -42,7 +42,7 @@ namespace DefaultNamespace
                 return;
             }
             
-            var transitionState = _currentState.Evaluate(_cursorAdapter);
+            var transitionState = _currentState.Evaluate(CursorAdapter);
             if (transitionState != null && transitionState != _currentState.GetType())
             {
                 _currentState.ExitState();
@@ -61,6 +61,11 @@ namespace DefaultNamespace
         public void PickSpawnPosition()
         {
             _currentState = _states[typeof(PickSpawnCursorState)];
+        }
+
+        public void SetState(Type type)
+        {
+            _currentState = _states[type];
         }
     }
 }

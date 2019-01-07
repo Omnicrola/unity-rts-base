@@ -8,25 +8,25 @@ namespace DefaultNamespace
 
         private void Update()
         {
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.UpArrow))
             {
                 var delta = transform.forward * Time.deltaTime * Speed;
                 ApplyTransform(delta);
             }
 
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KeyCode.DownArrow))
             {
                 var delta = transform.forward * -1f * Time.deltaTime * Speed;
                 ApplyTransform(delta);
             }
 
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
                 var delta = transform.right * -1f * Time.deltaTime * Speed;
                 ApplyTransform(delta);
             }
 
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.RightArrow))
             {
                 var delta = transform.right * Time.deltaTime * Speed;
                 ApplyTransform(delta);

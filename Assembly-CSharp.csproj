@@ -82,6 +82,7 @@
     <Compile Include="Assets\_Prototype\SpawnPools\SpawnManager.cs" />
     <Compile Include="Assets\_Prototype\Team.cs" />
     <Compile Include="Assets\_Prototype\TeamManager.cs" />
+    <Compile Include="Assets\_Prototype\UnitActionViewController.cs" />
     <Compile Include="Assets\_Prototype\UnitAttack.cs" />
     <Compile Include="Assets\_Prototype\UnitMovement.cs" />
     <Compile Include="Assets\_Prototype\UnityExtensions.cs" />

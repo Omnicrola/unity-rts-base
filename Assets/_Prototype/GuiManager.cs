@@ -6,31 +6,18 @@ namespace DefaultNamespace
 {
     public class GuiManager : MonoBehaviour
     {
-        public  CursorManager CursorManager;
-        public UnitSelectionGroup CurrentSelection { get; private set; }
-        public PlayerController LocalPlayer { get; set; }
+        public GameObject DebugPanel;
 
         private void Start()
         {
-            CurrentSelection = UnitSelectionGroup.EMPTY;
         }
 
-        public void SelectAll()
+        private void Update()
         {
-            var units = LocalPlayer.GetAllPlayerUnits();
-            CurrentSelection = new UnitSelectionGroup(LocalPlayer, units);
+            if (Input.GetKeyDown(KeyCode.F3))
+            {
+                DebugPanel.SetActive(!DebugPanel.activeInHierarchy);
+            }
         }
-
-        public void ClearSelection()
-        {
-            CurrentSelection = UnitSelectionGroup.EMPTY;
-        }
-
-        public void Select(List<SelectableUnit> units)
-        {
-            Debug.Log("Selected " + units.Count + " units");
-            CurrentSelection = new UnitSelectionGroup(LocalPlayer, units);
-        }
-
     }
 }
