@@ -381,13 +381,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e1e75292c6f4b0b93816919f18e505e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSpeed: 5
-  Accelleration: 1
-  TurnAccelleration: 100
-  MaxTurnSpeed: 200
-  AngleToTarget: 0
-  CurrentVelocity: 0
-  CurrentTurnSpeed: 0
+  Mass: 15
+  MaxVelocity: 3
+  MaxForce: 15
+  DefaultClosingDistance: 2
 --- !u!114 &5215972447469275413
 MonoBehaviour:
   m_ObjectHideFlags: 0

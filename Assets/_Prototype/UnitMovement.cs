@@ -1,3 +1,4 @@
+using System;
 using Unity.Collections;
 using UnityEngine;
 
@@ -5,30 +6,29 @@ namespace DefaultNamespace
 {
     public class UnitMovement : MonoBehaviour
     {
-        public float MaxSpeed = 5;
-        public float Accelleration = 1f;
-        public float TurnAccelleration = 1;
-        public float MaxTurnSpeed = 2;
+        public float Mass = 15;
+        public float MaxVelocity = 3;
+        public float MaxForce = 15;
+        public float DefaultClosingDistance = 1;
 
-        [ReadOnly] public float AngleToTarget;
-        [ReadOnly] public float CurrentVelocity;
-        [ReadOnly] public float CurrentTurnSpeed;
 
         private Vector3 _destination;
-        private float _closingRange;
+        private Vector3 _velocity;
+        private float _closingDistance;
+
         private bool IsMoving { get; set; }
 
         public void MoveTo(Vector3 location)
         {
             _destination = location;
-            _closingRange = 0;
+            _closingDistance = 0;
             IsMoving = true;
         }
 
         public void MoveToWithin(Vector3 position, float range)
         {
             _destination = position;
-            _closingRange = range;
+            _closingDistance = range;
             IsMoving = true;
         }
 
@@ -39,53 +39,28 @@ namespace DefaultNamespace
 
         private void Update()
         {
-            if (IsMoving)
+            var desiredVelocity = _destination - transform.position;
+            var approachRadius = Math.Max(_closingDistance, DefaultClosingDistance);
+            var distance = desiredVelocity.magnitude;
+            if (distance < approachRadius)
             {
-                var positionDelta = _destination - transform.position;
-                var movement = positionDelta.normalized * CurrentVelocity * Time.deltaTime;
-                var isCloseEnough = positionDelta.magnitude <= movement.magnitude + _closingRange;
-                if (isCloseEnough)
-                {
-                    CurrentVelocity = 0;
-                    CurrentTurnSpeed = 0;
-                    IsMoving = false;
-                }
-                else
-                {
-                    if (TurnToFace(_destination))
-                    {
-                        if (CurrentVelocity <= MaxSpeed)
-                        {
-                            CurrentVelocity += Accelleration * Time.deltaTime;
-                        }
-
-                        transform.position += movement;
-                    }
-                }
+                desiredVelocity = desiredVelocity.normalized * MaxVelocity * (distance / approachRadius);
             }
-        }
-
-        private bool TurnToFace(Vector3 target)
-        {
-            if (CurrentTurnSpeed <= MaxTurnSpeed)
+            else
             {
-                CurrentTurnSpeed += TurnAccelleration * Time.deltaTime;
+                desiredVelocity = desiredVelocity.normalized * MaxVelocity;
             }
 
-            var vectorToTarget = target.SetY(0) - transform.position.SetY(0);
-            var facingDirection = transform.forward;
-            var angleInDegrees = Vector3.SignedAngle(facingDirection, vectorToTarget, Vector3.up);
+            var steering = desiredVelocity - _velocity;
+            steering = Vector3.ClampMagnitude(steering, MaxForce);
+            steering /= Mass;
 
-            AngleToTarget = angleInDegrees;
-            if (Mathf.Abs(angleInDegrees) >= 5f)
+            _velocity = Vector3.ClampMagnitude(_velocity + steering, MaxVelocity);
+            transform.position += _velocity * Time.deltaTime;
+            if (distance > 0.1f)
             {
-                var rotation = CurrentTurnSpeed * Time.deltaTime;
-                rotation = angleInDegrees >= 0 ? rotation : rotation * -1f;
-                transform.Rotate(Vector3.up, rotation);
-                return false;
+                transform.forward = _velocity.normalized;
             }
-
-            return true;
         }
     }
 }
