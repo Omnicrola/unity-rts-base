@@ -63,6 +63,15 @@ namespace DefaultNamespace
             return GetChildren(obj.transform);
         }
 
+        public static Vector3 Rounded(this Vector3 vec)
+        {
+            return new Vector3(
+                (int) Math.Round(vec.x),
+                (int) Math.Round(vec.y),
+                (int) Math.Round(vec.z)
+            );
+        }
+
         public static Vector3Int AsIntRounded(this Vector3 vec)
         {
             return new Vector3Int(
