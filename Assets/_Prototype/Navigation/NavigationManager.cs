@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using _Prototype.Navigation;
-using Debug = UnityEngine.Debug;
 
 namespace DefaultNamespace.Navigation
 {
@@ -23,7 +23,7 @@ namespace DefaultNamespace.Navigation
 
         public void FindPath()
         {
-            StartCoroutine(FindPath(Origin, Destination));
+            _path = FindPath(Origin, Destination);
         }
 
         private void OnValidate()
@@ -33,12 +33,10 @@ namespace DefaultNamespace.Navigation
 
         private void Update()
         {
-//            _path = FindPath(Origin, Destination);
+            _path = FindPath(Origin, Destination);
         }
 
-        private List<AStarNode> _frontier;
-
-        public IEnumerator FindPath(Vector3 originPosition, Vector3 destinationPosition)
+        public List<Vector3> FindPath(Vector3 originPosition, Vector3 destinationPosition)
         {
             var pathfindingStats = new PathfindingStats();
             pathfindingStats.Start();
@@ -47,36 +45,33 @@ namespace DefaultNamespace.Navigation
             var destination = new AStarNode(null, 1, destinationPosition.Rounded());
 
             var usedPositions = new HashSet<AStarNode>();
-            usedPositions.Add(origin);
+            usedPositions.Add(destination);
 
             var frontier = new List<AStarNode>();
-            frontier.Add(origin);
+            frontier.Add(destination);
 
             var gScores = new Dictionary<AStarNode, float>();
             // cost of going from start to start is 0
-            gScores[origin] = 0;
-            
-            var fScores = new Dictionary<AStarNode, float>();
-            fScores[origin] = Distance(origin, destination);
+            gScores[destination] = 0;
 
-            var notFinished = true;
-            while (notFinished &&
-                   pathfindingStats.ElapsedTime < 10000 &&
+            var fScores = new Dictionary<AStarNode, float>();
+            fScores[destination] = Distance(origin, destination);
+
+            while (pathfindingStats.ElapsedTime < 10000 &&
                    frontier.Count > 0 &&
                    frontier.Count < 1000)
             {
                 ElapsedTime = pathfindingStats.ElapsedTime;
                 pathfindingStats.Cycles++;
+
                 var currentNode = frontier.OrderBy(n => fScores[n]).First();
                 frontier.Remove(currentNode);
                 usedPositions.Add(currentNode);
 
-                if ((currentNode.Position - destinationPosition).magnitude <= 1)
+                if ((currentNode.Position - originPosition).magnitude <= 1)
                 {
                     pathfindingStats.Stop(true);
-//                    return currentNode.BuildPath();
-                    _path = currentNode.BuildPath();
-                    notFinished = false;
+                    return currentNode.BuildPath();
                 }
 
                 var neighbors = NeighborsOf(currentNode);
@@ -101,16 +96,21 @@ namespace DefaultNamespace.Navigation
                     }
 
                     gScores[neighbor] = tenantiveScore;
-                    fScores[neighbor] = tenantiveScore + Distance(neighbor, destination);
+                    fScores[neighbor] = tenantiveScore + HeuristicScore(neighbor, origin);
                 }
 
-                _frontier = frontier;
-                _path = currentNode.BuildPath();
-                yield return null;
             }
 
             pathfindingStats.Stop(false);
-//            return new List<Vector3>();
+            return new List<Vector3>();
+        }
+
+        private float HeuristicScore(AStarNode neighbor, AStarNode destination)
+        {
+            var orthoginalDistance = (neighbor.Position - destination.Position).Absolute();
+            return orthoginalDistance.x +
+                   orthoginalDistance.y +
+                   orthoginalDistance.z;
         }
 
         private float Distance(AStarNode currentNode, AStarNode neighbor)
@@ -137,22 +137,17 @@ namespace DefaultNamespace.Navigation
 
         private void OnDrawGizmos()
         {
-            if (_path != null && _frontier != null)
+            if (_path != null)
             {
                 Gizmos.color = Color.green;
                 Gizmos.DrawSphere(Origin, .25f);
                 Gizmos.color = Color.red;
                 Gizmos.DrawSphere(Destination, .25f);
                 Gizmos.color = Color.white;
+
                 foreach (var p in _path)
                 {
                     Gizmos.DrawSphere(p, .125f);
-                }
-
-                Gizmos.color = Color.yellow;
-                foreach (var node in _frontier)
-                {
-                    Gizmos.DrawSphere(node.Position, .125f);
                 }
             }
         }

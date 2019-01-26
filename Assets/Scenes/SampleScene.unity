@@ -1014,8 +1014,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca1bd432fd906ed48aa146bc1825c233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Origin: {x: -20, y: 0, z: -1}
-  Destination: {x: 25, y: 0, z: -10}
+  Origin: {x: -20.21, y: 0, z: -1}
+  Destination: {x: 25, y: 0, z: -17.7}
 --- !u!1 &521600164
 GameObject:
   m_ObjectHideFlags: 0
