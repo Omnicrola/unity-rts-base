@@ -72,6 +72,9 @@
     <Compile Include="Assets\rts-prototype\devtools\DebugReadout.cs" />
     <Compile Include="Assets\rts-prototype\IPoolableObject.cs" />
     <Compile Include="Assets\rts-prototype\navigation\AStarNode.cs" />
+    <Compile Include="Assets\rts-prototype\navigation\AStarPathFinder.cs" />
+    <Compile Include="Assets\rts-prototype\navigation\GridBasedNodeSource.cs" />
+    <Compile Include="Assets\rts-prototype\navigation\INavigationNodeSource.cs" />
     <Compile Include="Assets\rts-prototype\navigation\IShortestPath.cs" />
     <Compile Include="Assets\rts-prototype\navigation\NavigationManager.cs" />
     <Compile Include="Assets\rts-prototype\navigation\PathfindingStats.cs" />
@@ -102,6 +105,7 @@
     <Compile Include="Assets\rts-prototype\units\UnitAttack.cs" />
     <Compile Include="Assets\rts-prototype\units\UnitMovement.cs" />
     <Compile Include="Assets\rts-prototype\UnityExtensions.cs" />
+    <Compile Include="Assets\rts-prototype\VoxelUtil.cs" />
     <None Include="Assets\NetworkLobby_Third-PartyNotice.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />

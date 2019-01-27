@@ -1,4 +1,5 @@
 ﻿using DefaultNamespace.Navigation;
+using navigation;
 using UnityEditor;
 using UnityEngine;
 
